@@ -1,0 +1,23 @@
+
+<form [formGroup]= "userData" (ngSubmit)="onSubmit()">
+  <label for ="firstName">First name </label>
+  <input type="text" name="firstName" id="firstName" formControlName="firstName">
+  <label for ="lastName">Last name </label>
+  <input type="text" name="lastName" id="lastName" formControlName="lastName">
+  <div formGroupName="address">
+    <label for ="city">City </label>
+    <input type="text" name="city" id="city" formControlName="city">
+    <label for ="street">Street </label>
+    <input type="text" name="street" id="street" formControlName="street">
+
+  </div>
+  <button type="submit" [disabled]="!userData.valid">Submit</button>
+  </form>
+
+  <pre> {{userData.value | json}}</pre>
+
+
+  <button (click)="setName()">Set name</button>
+
+  <label for="search">Search</label>
+  <input type="text" [formControl]="search">
