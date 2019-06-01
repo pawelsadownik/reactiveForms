@@ -3,25 +3,23 @@
 
 <div>
   <form novalidate (ngSubmit)="onSubmit(user)"  [formGroup]="user">
+
     <input name="name" placeholder="Name" id="name" formControlName="name">
     <div *ngIf="user.get('name').errors && user.get('name').touched" >
       <div class="error">Field required!</div>
     </div>
 
-    <label for ="surname">Surname </label>
-    <input  name="surname" id="surname" formControlName="surname">
+    <input  name="surname" placeholder="Surname" id="surname" formControlName="surname">
     <div *ngIf="user.get('surname').errors && user.get('surname').touched" >
         <div class="error">Field required!</div>
       </div>
 
-    <label for ="email">Email </label>
-    <input  name="email" id="email" formControlName="email">
+    <input  name="email" placeholder="e-mail" id="email" formControlName="email">
     <div *ngIf="user.get('email').errors && user.get('email').touched" >
         <div class="error">Field required!</div>
       </div>
 
-    <label for ="phone">Phone </label>
-    <input  name="phone" id="phone" formControlName="phone">
+    <input  name="phone" placeholder="phone" id="phone" formControlName="phone">
 
     <div class="form-group">
         <label for="pet">Pet</label>
@@ -35,38 +33,32 @@
       </div>
     <div>
 
-        <label>Enter Password</label>
-        <input type="password" appPassword name="password" id="password" formControlName="password">
+        <input type="password" placeholder="Password" appPassword name="password" id="password" formControlName="password">
       </div>
       <div *ngIf="user.get('password').valid" >
-        <label>Confirm password</label>
-        <input type="confirmpassword" appPassword name="confirmpassword" id="confirmpassword" formControlName="confirmpassword">
+        <input type="confirmpassword" placeholder="Confirm Password" appPassword name="confirmpassword" id="confirmpassword" formControlName="confirmpassword">
         <div class="error" *ngIf="user.get('confirmpassword').errors && user.get('confirmpassword').errors.ConfirmPassword">
             Passsword and ConfirmPassword didn't match.
            </div>
       </div>
 
     <div formGroupName="address">
-      <label for ="city">City </label>
-      <input type="text" name="city" id="city" formControlName="city">
+      <input type="text" name="city" placeholder="city" id="city" formControlName="city">
       <div *ngIf="user.get('address').get('city').errors && user.get('address').get('city').touched" >
           <div class="error">Field required!</div>
         </div>
 
-      <label for ="street">Street </label>
-      <input type="text" name="street" id="street" formControlName="street">
+      <input type="text" name="street" placeholder="street" id="street" formControlName="street">
       <div *ngIf="user.get('address').get('street').errors && user.get('address').get('street').touched" >
           <div class="error">Field required!</div>
         </div>
 
-      <label for ="building">Building </label>
-      <input type="text" name="building" id="building" formControlName="building">
+      <input type="text" placeholder="Building" name="building" id="building" formControlName="building">
       <div *ngIf="user.get('address').get('building').errors && user.get('address').get('building').touched" >
           <div class="error">Field required!</div>
         </div>
 
-      <label for ="flatNo">Flat Number </label>
-      <input type="text" name="flatNo" id="flatNo" formControlName="flatNo">
+      <input type="text" placeholder="Flat number" name="flatNo" id="flatNo" formControlName="flatNo">
     </div>
 
     <div formGroupName="consents">
