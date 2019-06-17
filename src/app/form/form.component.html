@@ -1,84 +1,179 @@
-<div class="login">
-  <h2 class="login-header">REACTIVE FORM PAWEL SADOWNIK</h2>
+<div class="container">
 
-<div>
-  <form novalidate (ngSubmit)="onSubmit(user)"  [formGroup]="user">
+  <h2>REACTIVE FORM PAWEL SADOWNIK</h2>
 
-    <input name="name" placeholder="Name" id="name" formControlName="name">
-    <div *ngIf="user.get('name').errors && user.get('name').touched" >
-      <div class="error">Field required!</div>
+  <div class="row">
+
+    <div class="col-md-9 personal-info">
+      <form class="form-horizontal" role="form" novalidate (ngSubmit)="onSubmit(user)"  [formGroup]="user">
+
+<!-- FIRST NAME -->
+  <div class="form-group">
+    <label class="col-lg-3 control-label">First name:</label>
+      <div class="col-lg-8">
+        <input class="form-control"type="text" id="name" formControlName="name"[ngClass]="{
+      'is-invalid':(user.get('name').touched || user.get('name').dirty)
+        &&!user.get('name').valid}">
+        <div class="alert alert-danger" role="alert" *ngIf="user.get('name').errors && user.get('name').touched">
+            {{errors.name}}
+        </div>
+      </div>
+  </div>
+
+<!-- LAST NAME -->
+<div class="form-group">
+    <label class="col-lg-3 control-label">Last name:</label>
+      <div class="col-lg-8">
+        <input class="form-control"type="text" id="surname" formControlName="surname"[ngClass]="{
+      'is-invalid':(user.get('surname').touched || user.get('surname').dirty)
+        &&!user.get('surname').valid}">
+        <div class="alert alert-danger" role="alert" *ngIf="user.get('surname').errors && user.get('surname').touched">
+            {{errors.surname}}
+        </div>
+      </div>
+  </div>
+
+<!-- EMAIL -->
+<div class="form-group">
+    <label class="col-lg-3 control-label">E-mail:</label>
+      <div class="col-lg-8">
+        <input class="form-control"type="email" id="email" formControlName="email"[ngClass]="{
+      'is-invalid':(user.get('email').touched || user.get('email').dirty)
+        &&!user.get('email').valid}">
+        <div class="alert alert-danger" role="alert" *ngIf="user.get('email').errors && user.get('email').touched">
+            {{errors.email}}
+        </div>
+      </div>
+  </div>
+
+   <!-- PHONE -->
+   <div class="form-group">
+      <label class="col-lg-3 control-label">Phone:</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="text"  formControlName="phone" [ngClass]="{'is-invalid':!user.get('phone').valid}">
+            <div class="alert alert-danger" role="alert" *ngIf="user.get('phone').errors">
+                {{errors.phone}}
+            </div>
+        </div>
     </div>
 
-    <input  name="surname" placeholder="Surname" id="surname" formControlName="surname">
-    <div *ngIf="user.get('surname').errors && user.get('surname').touched" >
-        <div class="error">Field required!</div>
-      </div>
 
-    <input  name="email" placeholder="e-mail" id="email" formControlName="email">
-    <div *ngIf="user.get('email').errors && user.get('email').touched" >
-        <div class="error">Field required!</div>
-      </div>
 
-    <input  name="phone" placeholder="phone" id="phone" formControlName="phone">
-
-    <div class="form-group">
-        <label for="pet">Pet</label>
-        <select id="pet" formControlName="pet">
-          <option selected [ngValue]="null"></option>
-          <option *ngFor="let pet of pets" [value]="pet">{{pet}}</option>
-        </select>
-        <div *ngIf="user.get('pet').errors && user.get('pet').touched" >
-            <div class="error">Field required!</div>
-          </div>
-      </div>
-    <div>
-
-        <input type="password" placeholder="Password" appPassword name="password" id="password" formControlName="password">
+<!-- PASSWORD -->
+<div class="form-group">
+    <label class="col-lg-3 control-label">Password:</label>
+      <div class="col-lg-8">
+        <input class="form-control" type="password" appPassword name="password" id="password" formControlName="password">
+        <div class="alert alert-danger" role="alert" *ngIf="user.get('password').errors && user.get('password').touched">
+            {{errors.password}}
+        </div>
       </div>
       <div *ngIf="user.get('password').valid" >
-        <input type="confirmpassword" placeholder="Confirm Password" appPassword name="confirmpassword" id="confirmpassword" formControlName="confirmpassword">
-        <div class="error" *ngIf="user.get('confirmpassword').errors && user.get('confirmpassword').errors.ConfirmPassword">
-            Passsword and ConfirmPassword didn't match.
-           </div>
+        <div class="col-lg-8">
+          <input class="form-control" type="confirmpassword"  appPassword name="confirmpassword" id="confirmpassword" formControlName="confirmpassword">
+            <div class="alert alert-danger" role="alert" *ngIf="user.get('confirmpassword').errors && user.get('confirmpassword').errors.ConfirmPassword">
+                Passwords don't match—check it out!
+            </div>
+        </div>
       </div>
+</div>
 
-    <div formGroupName="address">
-      <input type="text" name="city" placeholder="city" id="city" formControlName="city">
-      <div *ngIf="user.get('address').get('city').errors && user.get('address').get('city').touched" >
-          <div class="error">Field required!</div>
+   <!-- PET -->
+   <div class="form-group">
+      <label for="pet" class="col-lg-3 control-label">Pet:</label>
+      <div class="col-lg-8 btn-group-vertical">
+        <label><input type="radio" name="pet" value="dog" formControlName="pet">Dog</label>
+        <label><input type="radio" name="pet" value="cat" formControlName="pet">Cat</label>
+        <label><input type="radio" name="pet" value="other" formControlName="pet">Other</label>
+      </div>
+  </div>
+
+<!-- ADDRESS -->
+<div formGroupName="address">
+
+  <!-- CITY -->
+    <div class="form-group">
+        <label class="col-lg-3 control-label">City:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" name="city" id="city" formControlName="city"[ngClass]="{
+            'is-invalid':(user.get('address').get('city').touched || user.get('address').get('city').dirty)
+            &&!user.get('address').get('city').valid}">
+            <div class="alert alert-danger" role="alert" *ngIf="user.get('address').get('city').errors && user.get('address').get('city').touched">
+                {{errors.city}}
+            </div>
         </div>
-
-      <input type="text" name="street" placeholder="street" id="street" formControlName="street">
-      <div *ngIf="user.get('address').get('street').errors && user.get('address').get('street').touched" >
-          <div class="error">Field required!</div>
-        </div>
-
-      <input type="text" placeholder="Building" name="building" id="building" formControlName="building">
-      <div *ngIf="user.get('address').get('building').errors && user.get('address').get('building').touched" >
-          <div class="error">Field required!</div>
-        </div>
-
-      <input type="text" placeholder="Flat number" name="flatNo" id="flatNo" formControlName="flatNo">
     </div>
 
-    <div formGroupName="consents">
+  <!-- STREET -->
+    <div class="form-group">
+        <label class="col-lg-3 control-label">Street:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" name="street" id="street" formControlName="street"[ngClass]="{
+            'is-invalid':(user.get('address').get('street').touched || user.get('address').get('street').dirty)
+            &&!user.get('address').get('street').valid}">
+            <div class="alert alert-danger" role="alert" *ngIf="user.get('address').get('street').errors && user.get('address').get('street').touched">
+                {{errors.street}}
+            </div>
+        </div>
+    </div>
+
+<!-- BUILDING -->
+<div class="form-group">
+    <label class="col-lg-3 control-label">Building:</label>
+    <div class="col-lg-8">
+      <input class="form-control" type="text" name="building" id="building" formControlName="building"[ngClass]="{
+        'is-invalid':(user.get('address').get('building').touched || user.get('address').get('building').dirty)
+        &&!user.get('address').get('building').valid}">
+        <div class="alert alert-danger" role="alert" *ngIf="user.get('address').get('building').errors && user.get('address').get('building').touched">
+            {{errors.building}}
+        </div>
+    </div>
+</div>
+
+<!-- FLAT NUMBER -->
+<div class="form-group">
+    <label class="col-lg-3 control-label">Flat number:</label>
+    <div class="col-lg-8">
+      <input class="form-control" type="text" name="flatNo" id="flatNo"formControlName="flatNo">
+    </div>
+</div>
+
+  </div>
+
+
+<!-- CONSENTS -->
+  <div formGroupName="consents">
+      <div class="form-group">
         <label for ="newsletter">Newsletter </label>
-        <input type="checkbox"  name="newsletter" id="newsletter" formControlName="newsletter">
-        <div *ngIf="user.get('consents').get('newsletter').errors && user.get('consents').get('newsletter').touched" >
-            <div class="error">Newsletter acceptation is neccessary</div>
-          </div>
-          <div *ngIf="user.get('phone').valid" >
+        <div class="col-1">
+          <input class="form-control" type="checkbox"  name="newsletter" id="newsletter" formControlName="newsletter">
+        </div>
+        <small id="nHelp" class="form-text text-muted">Newsletter acceptation is mandatory</small>
+
+
+          <div *ngIf="user.get('phone').valid && user.get('phone').value != null">
             <label for ="sms">SMS </label>
-            <input type="checkbox" name="sms" id="sms" [value]="true" formControlName="sms">
+            <div class="col-1">
+              <input class="form-control"type="checkbox" name="sms" id="sms" [value]="true" formControlName="sms">
+            </div>
           </div>
 
-      </div>
 
-    <div class="col-2">
-      <button type="submit" [disabled]="user.invalid">Sign up</button>
     </div>
-</form>
+  </div>
+
+<!-- SUBMIT BUTTON -->
+<div class="form-group">
+    <label class="col-md-3 control-label"></label>
+    <div class="col-md-8">
+        <input type="submit" class="btn btn-primary btn-block" [disabled]="user.invalid" value="Submit" >
+    </div>
+  </div>
+
+<!-- END OF FORM -->
+
+        </form>
+      </div>
+    </div>
 </div>
 
-
-</div>

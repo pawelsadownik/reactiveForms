@@ -14,10 +14,23 @@ import { ConfirmPasswordValidator } from './ConfirmPasswordValidator';
 export class FormComponent implements OnInit {
   user: FormGroup;
 
-constructor(private formBuilder: FormBuilder) {}
+constructor(private formBuilder: FormBuilder) {
+
+  const el = document.getElementById('name');
+  console.log(el);
+}
 
 
-  pets: Array<String> = ['Dog', 'Cat', 'Other'];
+  errors = {
+  name: 'Field Required',
+  surname: 'Field Required',
+  email: 'Field Required',
+  phone: 'Minimum 9 charactes, alowed only digits and special characters: +-()',
+  password: 'Minimum 8 charactes, 1 capital letter and at least one special character: @,#,$,%,^,&',
+  city: 'Field Required',
+  street: 'Field Required',
+  building: 'Field Required'
+}
 
   ngOnInit() {
 
@@ -28,10 +41,7 @@ constructor(private formBuilder: FormBuilder) {}
         Validators.required,
         Validators.email
       ])],
-      phone: [null, Validators.compose([
-        Validators.required,
-        Validators.pattern('^[0-9\-\+\ \)\(].{8,}$')
-      ])],
+      phone: [null,Validators.pattern('^[0-9\-\+\ \)\(].{8,}$')],
       password: [null, Validators.compose([
         Validators.required,
         Validators.pattern('^(?=.*?[A-Z])(?=.*?[@#$%^&]).{8,}$')
@@ -39,12 +49,12 @@ constructor(private formBuilder: FormBuilder) {}
       confirmpassword: [null, Validators.compose([
         Validators.required,
       ])],
-      pet: [null, Validators.required],
-    address: this.formBuilder.group({
-      city: [null, Validators.required],
-      street: [null, Validators.required],
-      building: [null, Validators.required],
-      flatNo: [null]
+      pet: ['dog', Validators.required],
+      address: this.formBuilder.group({
+        city: [null, Validators.required],
+        street: [null, Validators.required],
+        building: [null, Validators.required],
+        flatNo: [null]
     }),
     consents: this.formBuilder.group({
         newsletter: [false, Validators.requiredTrue],
@@ -57,7 +67,10 @@ constructor(private formBuilder: FormBuilder) {}
 
 }
  onSubmit({ value, valid }: { value: RegisteredUser, valid: boolean }) {
-   console.log(value);
+
+  this.formBuilder= JSON.parse(JSON.stringify(this.user.value).replace(/"\s+|\s+"/g,'"'));
+  console.log(this.formBuilder);
+
  }
 
 
